@@ -1,5 +1,5 @@
-import { CrosswordBuilder } from "./CrosswordBuilder";
+import { CrosswordBuilder } from './CrosswordBuilder';
 
 export function newCrosswordBuilder(): CrosswordBuilder {
-    return new CrosswordBuilder();
+  return new CrosswordBuilder();
 }

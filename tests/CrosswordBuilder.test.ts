@@ -28,7 +28,7 @@ describe("CrosswordBuilder", () => {
             builder.addWord("no");
             builder.addWord("on");
             builder.addWord("no");
-            expect(builder.puzzles.length).to.eql(4);
+            expect(builder.puzzles.length).to.eql(8);
         });
     });
 });

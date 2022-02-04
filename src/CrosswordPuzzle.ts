@@ -45,11 +45,11 @@ export class CrosswordPuzzle {
   }
 
   addWord(word: string): CrosswordPuzzle[] {
-    if (this.wordsGraph == undefined) {
+    if (this.wordsGraph === undefined) {
       const wordAsLetters = this.wordAsLetters(word);
       this.wordsGraph = wordAsLetters[0];
       this.board = undefined;
-      for (let letter of wordAsLetters) {
+      for (const letter of wordAsLetters) {
         this.openLetterCatalog[letter.character as string] ||= [];
         this.openLetterCatalog[letter.character as string].push(letter);
       }
@@ -61,7 +61,7 @@ export class CrosswordPuzzle {
         ...wordAsChars.map((inputWordChar, inputWordCharIndex) => {
           return (this.openLetterCatalog[inputWordChar] || [])
             .map((openLetter, openLetterIndex) => {
-              let x = this.createSubPuzzle(word, inputWordCharIndex, openLetterIndex);
+              const x = this.createSubPuzzle(word, inputWordCharIndex, openLetterIndex);
               return x;
             })
             .filter((x) => x);
@@ -78,12 +78,12 @@ export class CrosswordPuzzle {
   }
 
   private createSubPuzzle(word: string, letterIndex: number, openLetterIndex: number): CrosswordPuzzle | undefined {
-    let newPuzzle = _.cloneDeep(this);
+    const newPuzzle = _.cloneDeep(this);
     newPuzzle.board = undefined;
 
     const wordAsLetters = this.wordAsLetters(word);
     const wordOverlapLetter = wordAsLetters[letterIndex];
-    for (let letter of wordAsLetters) {
+    for (const letter of wordAsLetters) {
       if (letter !== wordOverlapLetter) {
         newPuzzle.openLetterCatalog[letter.character as string] ||= [];
         newPuzzle.openLetterCatalog[letter.character as string].push(letter);
@@ -95,7 +95,8 @@ export class CrosswordPuzzle {
       newPuzzle.openLetterCatalog[wordOverlapLetter.character as string] = newPuzzle.openLetterCatalog[
         wordOverlapLetter.character as string
       ].filter((obj) => {
-        obj !== newPuzzle.openLetterCatalog[wordOverlapLetter.character as string][openLetterIndex];
+        // Changed this right?
+        return obj !== newPuzzle.openLetterCatalog[wordOverlapLetter.character as string][openLetterIndex];
       });
       return newPuzzle;
     } else {
@@ -107,7 +108,7 @@ export class CrosswordPuzzle {
     const wordAsChars = Array.from(word.toLowerCase()).map((character) => character as Char);
     const wordAsLetters = wordAsChars.map((character) => new CrosswordLetter(character));
     for (let i = 0; i < wordAsLetters.length; i++) {
-      if (wordAsLetters[i + 1] != undefined) {
+      if (wordAsLetters[i + 1] !== undefined) {
         wordAsLetters[i].append(wordAsLetters[i + 1]);
       }
     }

@@ -6,7 +6,7 @@ import * as chai from "chai";
 const expect = chai.expect;
 describe("CrosswordLetter", () => {
     describe("#fromWord", () => {
-        let comparisonWord: CrosswordLetter = new CrosswordLetter('t')
+        const comparisonWord: CrosswordLetter = new CrosswordLetter('t')
          comparisonWord.wordStart = true;   
         comparisonWord.append(new CrosswordLetter('e'))
                             .append(new CrosswordLetter('s'))

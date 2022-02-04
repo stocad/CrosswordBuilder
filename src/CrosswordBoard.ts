@@ -1,4 +1,4 @@
-import { CrosswordLetter, Char } from './CrosswordLetter';
+import { CrosswordLetter } from './CrosswordLetter';
 
 export type Direction = 'x' | 'y';
 
@@ -16,7 +16,8 @@ class ImpossibleBoard extends Error {
   constructor(public message: string) {
     super(message);
     this.name = 'ImpossibleBoard';
-    this.stack = (<any>new Error()).stack;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.stack = (new Error() as any).stack;
   }
 }
 
@@ -62,9 +63,9 @@ export class CrosswordBoard {
   }
 
   output(): string {
-    let output: string[] = [];
+    const output: string[] = [];
     for (let y = this.upperLeft.y; y <= this.lowerRight.y; y += 1) {
-      let row: string[] = [];
+      const row: string[] = [];
       for (let x = this.upperLeft.x; x <= this.lowerRight.x; x += 1) {
         row.push((this.board[x] || {})[y]?.character || '-');
       }
@@ -73,10 +74,22 @@ export class CrosswordBoard {
     return output.join('\n');
   }
 
+  outputLetterGrid(): (string|undefined)[][] {
+    const output: (string|undefined)[][] = [];
+    for (let y = this.upperLeft.y; y <= this.lowerRight.y; y += 1) {
+      const row: (string|undefined)[] = [];
+      for (let x = this.upperLeft.x; x <= this.lowerRight.x; x += 1) {
+        row.push((this.board[x] || {})[y]?.character);
+      }
+      output.push(row);
+    }
+    return output;
+  }
+
   private measure() {
     let overlaps = 0;
-    let xKeyStrings: Set<string> = new Set();
-    let yKeyStrings: Set<string> = new Set();
+    const xKeyStrings: Set<string> = new Set();
+    const yKeyStrings: Set<string> = new Set();
     this.eachCoordinate((xKey: string, yKey: string) => {
       yKeyStrings.add(yKey);
       xKeyStrings.add(xKey);
@@ -154,8 +167,8 @@ export class CrosswordBoard {
   }
 
   private eachCoordinate(operation: (xKey: string, yKey: string) => void) {
-    for (let xKey in this.board) {
-      for (let yKey in this.board[xKey]) {
+    for (const xKey in this.board) {
+      for (const yKey in this.board[xKey]) {
         operation(xKey, yKey);
       }
     }
@@ -163,10 +176,10 @@ export class CrosswordBoard {
 
   private validate() {
     this.eachCoordinate((xKey, yKey) => {
-      let x = Number(xKey);
-      let y = Number(yKey);
-      let expectedNeighbors = this.board[Number(xKey)][Number(yKey)].expectedNeighbors();
-      let actualNeighbors = [
+      const x = Number(xKey);
+      const y = Number(yKey);
+      const expectedNeighbors = this.board[Number(xKey)][Number(yKey)].expectedNeighbors();
+      const actualNeighbors = [
         (this.board[x - 1] || {})[y],
         (this.board[x + 1] || {})[y],
         (this.board[x] || {})[y - 1],

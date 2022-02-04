@@ -17,7 +17,7 @@ export declare class CrosswordLetter {
     wordNextLetter: CrosswordLetter | undefined;
     wordPriorLetter: CrosswordLetter | undefined;
     overlappingLetter: CrosswordLetter | undefined;
-    static fromWord(word: String): CrosswordLetter;
+    static fromWord(word: string): CrosswordLetter;
     static deserialize(input: SerializedWord): CrosswordLetter;
     constructor(character: Char);
     serialize(): SerializedWord;

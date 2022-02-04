@@ -14,7 +14,7 @@ describe("CrosswordPuzzle", () => {
 
     describe("#addWord", () => {
         context("first word", () => {
-            const firstWord: string = "test";
+            const firstWord = "test";
 
             beforeEach(() => {
                 puzzles = puzzle.addWord(firstWord);
@@ -34,8 +34,8 @@ describe("CrosswordPuzzle", () => {
         });
 
         context("second word", () => {
-            const firstWord: string = "test";
-            const secondWord: string = "start";
+            const firstWord = "test";
+            const secondWord = "start";
 
             beforeEach(() => {
                 const firstWordPuzzles = puzzle.addWord(firstWord);
@@ -58,8 +58,8 @@ describe("CrosswordPuzzle", () => {
         });
 
         context("second word non-intersecting", () => {
-            const firstWord: string = "test";
-            const secondWord: string = "monday";
+            const firstWord = "test";
+            const secondWord = "monday";
 
             beforeEach(() => {
                 const firstWordPuzzles = puzzle.addWord(firstWord);

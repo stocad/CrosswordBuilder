@@ -1,5 +1,5 @@
-import { CrosswordLetter } from "./CrosswordLetter";
-import { CrosswordBoard } from "./CrosswordBoard";
+import { CrosswordLetter } from './CrosswordLetter';
+import { CrosswordBoard } from './CrosswordBoard';
 export declare class CrosswordPuzzle {
     wordsGraph: CrosswordLetter | undefined;
     openLetterCatalog: {

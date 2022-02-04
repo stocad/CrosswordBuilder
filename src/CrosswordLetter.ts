@@ -32,7 +32,7 @@ const Char = [
 export type Char = typeof Char[number];
 
 function isChar(char: unknown): char is Char {
-  return Char.indexOf(char as Char) != -1;
+  return Char.indexOf(char as Char) !== -1;
 }
 
 class SerializedWord {
@@ -66,7 +66,7 @@ export class CrosswordLetter {
 
   overlappingLetter: CrosswordLetter | undefined;
 
-  static fromWord(word: String): CrosswordLetter {
+  static fromWord(word: string): CrosswordLetter {
     const wordAsChars = Array.from(word.toLowerCase()).filter((char) => isChar(char));
     const wordAsLetters = wordAsChars.map((character) => new CrosswordLetter(character));
     wordAsLetters[0].wordStart = true;
@@ -97,6 +97,7 @@ export class CrosswordLetter {
   }
 
   serializeHelper(): [number, SerializedWord] {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     let currentLetter: CrosswordLetter | undefined = this;
     const details: [string, CrosswordLetter | undefined][] = [];
     while ((currentLetter = currentLetter.wordPriorLetter)) {
@@ -108,21 +109,21 @@ export class CrosswordLetter {
     details.forEach(([char, overlappingLetter], index) => {
       word += char;
       if (overlappingLetter) {
-        let [childIndex, serializedOutput] = overlappingLetter.serializeHelper();
+        const [childIndex, serializedOutput] = overlappingLetter.serializeHelper();
         intersections.push(new SerializedIntersection(currentIndex, childIndex, serializedOutput));
       }
 
       currentIndex += 1;
     });
     currentLetter = this;
-    let crossesParentAt = currentIndex;
+    const crossesParentAt = currentIndex;
     word += this.character;
 
     while ((currentLetter = currentLetter.wordNextLetter)) {
       currentIndex += 1;
       word += currentLetter.character;
       if (currentLetter.overlappingLetter) {
-        let [childIndex, serializedOutput] = currentLetter.overlappingLetter.serializeHelper();
+        const [childIndex, serializedOutput] = currentLetter.overlappingLetter.serializeHelper();
         intersections.push(new SerializedIntersection(currentIndex, childIndex, serializedOutput));
       }
     }

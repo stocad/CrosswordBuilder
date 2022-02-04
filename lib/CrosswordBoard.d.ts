@@ -1,5 +1,5 @@
-import { CrosswordLetter } from "./CrosswordLetter";
-export declare type Direction = "x" | "y";
+import { CrosswordLetter } from './CrosswordLetter';
+export declare type Direction = 'x' | 'y';
 declare class Point {
     x: number;
     y: number;
@@ -21,6 +21,7 @@ export declare class CrosswordBoard {
     width(): number;
     height(): number;
     output(): string;
+    outputLetterGrid(): (string | undefined)[][];
     private measure;
     private write;
     private writeLetter;

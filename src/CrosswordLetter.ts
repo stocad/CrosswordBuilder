@@ -92,6 +92,18 @@ export class CrosswordLetter {
     this.wordStart = false;
   }
 
+  read(): string {
+    if(this.wordNextLetter) {
+      return this.character + this.wordNextLetter.read();
+    } else {
+      return this.character;
+    }
+  }
+
+  isFirst() {
+    return !this.wordPriorLetter
+  }
+
   serialize(): SerializedWord {
     return this.serializeHelper()[1];
   }

@@ -1,10 +1,16 @@
 import { CrosswordLetter } from './CrosswordLetter';
 export declare type Direction = 'x' | 'y';
-declare class Point {
+declare type WordPostion = {
+    word: string;
+    position: Point;
+    number: number;
+    direction: "Across" | "Down";
+};
+declare type WordPositions = WordPostion[];
+declare type Point = {
     x: number;
     y: number;
-    constructor(x: number, y: number);
-}
+};
 export declare class CrosswordBoard {
     board: {
         [key: number]: {
@@ -22,6 +28,8 @@ export declare class CrosswordBoard {
     height(): number;
     output(): string;
     outputLetterGrid(): (string | undefined)[][];
+    outputWordPositions(): WordPositions;
+    private isAcross;
     private measure;
     private write;
     private writeLetter;

@@ -2,14 +2,18 @@ import { CrosswordLetter } from './CrosswordLetter';
 
 export type Direction = 'x' | 'y';
 
-class Point {
-  x: number;
-  y: number;
+type WordPostion = {
+  word: string
+  position: Point
+  number: number
+  direction: "Across" | "Down"
+}
 
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
+type WordPositions = WordPostion[]
+
+type Point = {
+  x: number
+  y: number
 }
 
 class ImpossibleBoard extends Error {
@@ -33,14 +37,14 @@ export class CrosswordBoard {
 
   constructor(letterGraphStart?: CrosswordLetter) {
     this.board = {};
-    this.upperLeft = new Point(0, 0);
-    this.lowerRight = new Point(0, 0);
+    this.upperLeft = {x: 0, y: 0};
+    this.lowerRight = {x: 0, y: 0};
     this.overlaps = 0;
     this.valid = true;
     this.possible = true;
     if (letterGraphStart) {
       try {
-        this.write(letterGraphStart, new Point(0, 0), 'x');
+        this.write(letterGraphStart, {x: 0, y: 0}, 'x');
       } catch (e) {
         if (e instanceof Error) {
           return;
@@ -86,6 +90,76 @@ export class CrosswordBoard {
     return output;
   }
 
+  outputWordPositions():WordPositions {
+    const wordPositions:WordPositions = []
+    let currentNumber = 0
+    for (let y = this.upperLeft.y; y <= this.lowerRight.y; y += 1) {
+      for (let x = this.upperLeft.x; x <= this.lowerRight.x; x += 1) {
+        const currentLetter = (this.board[x] || {})[y];
+        const currentPosition = {x: x, y: y}
+        const adjustedPosition = {x: x - this.upperLeft.x, y: y - this.upperLeft.y}
+
+        if(currentLetter) {
+          const overlappingLetter = currentLetter.overlappingLetter
+          if(currentLetter.isFirst() || (overlappingLetter && overlappingLetter.isFirst())) {
+            currentNumber += 1;
+          }
+          if(currentLetter.isFirst()) {
+            if(this.isAcross(currentLetter, currentPosition)) {
+              wordPositions.push(
+                {
+                  word: currentLetter.read(),
+                  position: adjustedPosition,
+                  number: currentNumber,
+                  direction: "Across"
+                }
+              )
+            } else {
+              wordPositions.push(
+                {
+                  word: currentLetter.read(),
+                  position: adjustedPosition,
+                  number: currentNumber,
+                  direction: "Down"
+                }
+              )
+            }
+          }
+          if(overlappingLetter && overlappingLetter.isFirst()) {
+            if(this.isAcross(overlappingLetter, currentPosition)) {
+              wordPositions.push(
+                {
+                  word: overlappingLetter.read(),
+                  position: adjustedPosition,
+                  number: currentNumber,
+                  direction: "Across"
+                }
+              )
+            } else {
+              wordPositions.push(
+                {
+                  word: overlappingLetter.read(),
+                  position: adjustedPosition,
+                  number: currentNumber,
+                  direction: "Down"
+                }
+              )
+            }
+          }
+        }
+      }
+    }
+    return wordPositions
+  }
+
+  private isAcross(letter: CrosswordLetter, currentPosition: Point): boolean {
+    const nextLateralLetter = (this.board[currentPosition.x + 1] || {})[currentPosition.y];
+    if(letter.wordNextLetter && (nextLateralLetter === letter.wordNextLetter || nextLateralLetter?.overlappingLetter === letter.wordNextLetter)) {
+      return true;
+    }
+    return false;
+  }
+
   private measure() {
     let overlaps = 0;
     const xKeyStrings: Set<string> = new Set();
@@ -100,8 +174,8 @@ export class CrosswordBoard {
 
     const xKeys = Array.from(xKeyStrings).map((key) => Number(key));
     const yKeys = Array.from(yKeyStrings).map((key) => Number(key));
-    this.upperLeft = new Point(Math.min(...xKeys), Math.min(...yKeys));
-    this.lowerRight = new Point(Math.max(...xKeys), Math.max(...yKeys));
+    this.upperLeft = {x: Math.min(...xKeys), y: Math.min(...yKeys)};
+    this.lowerRight = {x: Math.max(...xKeys), y: Math.max(...yKeys)};
     this.overlaps = overlaps;
   }
 

@@ -20,6 +20,8 @@ export declare class CrosswordLetter {
     static fromWord(word: string): CrosswordLetter;
     static deserialize(input: SerializedWord): CrosswordLetter;
     constructor(character: Char);
+    read(): string;
+    isFirst(): boolean;
     serialize(): SerializedWord;
     serializeHelper(): [number, SerializedWord];
     move(n: number): CrosswordLetter;

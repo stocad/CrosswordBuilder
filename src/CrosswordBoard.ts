@@ -2,14 +2,14 @@ import { CrosswordLetter } from './CrosswordLetter';
 
 export type Direction = 'x' | 'y';
 
-type WordPostion = {
+export type WordPostion = {
   word: string
   position: Point
   number: number
   direction: "Across" | "Down"
 }
 
-type WordPositions = WordPostion[]
+export type WordPositions = WordPostion[]
 
 type Point = {
   x: number

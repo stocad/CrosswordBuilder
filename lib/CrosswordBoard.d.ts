@@ -1,12 +1,12 @@
 import { CrosswordLetter } from './CrosswordLetter';
 export declare type Direction = 'x' | 'y';
-declare type WordPostion = {
+export declare type WordPostion = {
     word: string;
     position: Point;
     number: number;
     direction: "Across" | "Down";
 };
-declare type WordPositions = WordPostion[];
+export declare type WordPositions = WordPostion[];
 declare type Point = {
     x: number;
     y: number;

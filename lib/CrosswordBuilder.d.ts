@@ -1,8 +1,9 @@
 import { CrosswordPuzzle } from './CrosswordPuzzle';
+import { PuzzleGenerator } from './PuzzleGenerator';
 export declare class CrosswordBuilder {
-    puzzles: CrosswordPuzzle[];
+    puzzleGenerator: PuzzleGenerator | undefined;
     constructor();
     addWord(word: string): void;
-    puzzlesToAddTo(): CrosswordPuzzle[];
-    validPuzzles(): CrosswordPuzzle[];
+    validPuzzles(cachedOnly?: boolean): CrosswordPuzzle[];
+    puzzles(cachedOnly?: boolean): CrosswordPuzzle[];
 }

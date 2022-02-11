@@ -19,7 +19,7 @@ describe("CrosswordBuilder", () => {
             builder.addWord("on");
             builder.addWord("no");
             builder.addWord("on");
-            expect(builder.puzzles.length).to.eql(4);
+            expect(builder.puzzles().length).to.eql(4);
         });
 
         it("returns valid puzzles for on,no,on,no", () => {
@@ -28,7 +28,26 @@ describe("CrosswordBuilder", () => {
             builder.addWord("no");
             builder.addWord("on");
             builder.addWord("no");
-            expect(builder.puzzles.length).to.eql(8);
+            expect(builder.puzzles().length).to.eql(8);
+        });
+
+        it("returns valid puzzles for on,no,on,no", () => {
+            const builder = new CrosswordBuilder();
+            builder.addWord("on");
+            builder.addWord("no");
+            builder.addWord("on");
+            builder.addWord("no");
+            expect(builder.puzzles().length).to.eql(8);
+        });
+
+        it("returns valid puzzles for on,no,on,no", () => {
+            const builder = new CrosswordBuilder();
+            builder.addWord("on");
+            builder.addWord("no");
+            builder.addWord("on");
+            builder.addWord("no");
+            builder.puzzleGenerator?.buffer(500)
+            expect(builder.puzzles(true).length).to.eql(8);
         });
     });
 });

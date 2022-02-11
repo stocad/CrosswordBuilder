@@ -1,39 +1,18 @@
 import { CrosswordPuzzle } from './CrosswordPuzzle';
+import { PuzzleGenerator } from './PuzzleGenerator';
 
 export class CrosswordBuilder {
-  puzzles: CrosswordPuzzle[];
-
-  constructor() {
-    this.puzzles = [];
-  }
+  puzzleGenerator: PuzzleGenerator | undefined = undefined;
 
   addWord(word: string) {
-    if (this.puzzles.length === 0) {
-      const puzzle = new CrosswordPuzzle();
-      this.puzzles = puzzle.addWord(word);
-    } else {
-      this.puzzles = Array.prototype
-        .concat(...this.puzzlesToAddTo().map((board) => board.addWord(word)))
-        .sort((puzzle) => puzzle.score());
-    }
+    this.puzzleGenerator = new PuzzleGenerator(word, this.puzzleGenerator)
   }
 
-  puzzlesToAddTo():CrosswordPuzzle[] {
-    let validPuzzleCount = 0;
-    let invalidPuzzleCount = 0;
-    return this.puzzles.filter((puzzle) => {
-      if(puzzle.valid() && validPuzzleCount <= 20) {
-        validPuzzleCount += 1;
-        return true;
-      } else if(invalidPuzzleCount <= 5) {
-        invalidPuzzleCount +=1;
-        return true;
-      }
-      return false;
-    });
+  validPuzzles(cachedOnly = false): CrosswordPuzzle[] {
+    return this.puzzles(cachedOnly).filter((puzzle) => puzzle.valid()) || [];
   }
 
-  validPuzzles(): CrosswordPuzzle[] {
-    return this.puzzles.filter((puzzle) => puzzle.valid());
+  puzzles(cachedOnly = false): CrosswordPuzzle[] {
+    return this.puzzleGenerator?.peek(20, cachedOnly) || [];
   }
 }

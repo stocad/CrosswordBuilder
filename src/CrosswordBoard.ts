@@ -235,8 +235,8 @@ export class CrosswordBoard {
         }
     }
 
+    // eslint-disable-next-line
     private eachCoordinate(operation: (xKey: string, yKey: string) => void) {
-        // eslint-disable-line
         for (const xKey in this.board) {
             for (const yKey in this.board[xKey]) {
                 operation(xKey, yKey);

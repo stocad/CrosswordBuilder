@@ -1,5 +1,5 @@
 {
-  "name": "crosswordbuilder",
+  "name": "crossword-builder",
   "version": "1.0.0",
   "description": "Library code to build crossword puzzles one word at a time.",
   "main": "lib/index.js",

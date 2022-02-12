@@ -1,5 +1,14 @@
 {
     "files.exclude": {
         "**/*.js": true
-    }
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.validate": [
+        "typescript"
+    ],
+    "editor.tabSize": 4,
+    "prettier.tabWidth": 4,
+    "prettier.semi": false
 }

@@ -4,7 +4,7 @@ export declare type WordPostion = {
     word: string;
     position: Point;
     number: number;
-    direction: "Across" | "Down";
+    direction: 'Across' | 'Down';
 };
 export declare type WordPositions = WordPostion[];
 declare type Point = {

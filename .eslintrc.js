@@ -6,8 +6,7 @@ module.exports = {
     },
     'extends': 'eslint:recommended',
     'parserOptions': {
-        'ecmaVersion': 12,
-        'sourceType': 'module'
+        'sourceType': 'module',
     },
     'rules': {
         'quotes': ['error', 'single'],
@@ -15,15 +14,7 @@ module.exports = {
         'semi': ['error', 'always'],
         'indent': ['error', 4],
         // we want to avoid extraneous spaces
-        'no-multi-spaces': ['error'],
-        'prettier/prettier': [
-            1,
-            {
-                'useTabs': false,
-                'printWidth': 120,
-                'tabWidth': 4,
-                'singleQuote': true
-            }
-        ]
-    }
+        'no-multi-spaces': ['error']
+    },
+    'parser': '@typescript-eslint/parser',
 };

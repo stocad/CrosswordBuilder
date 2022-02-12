@@ -17,11 +17,11 @@ type Point = {
 };
 
 class ImpossibleBoard extends Error {
-    constructor(public message: string) {
+    constructor(message: string) {
         super(message);
         this.name = 'ImpossibleBoard';
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.stack = (new Error() as any).stack;
+
+        this.stack = (new Error()).stack;
     }
 }
 
@@ -236,7 +236,8 @@ export class CrosswordBoard {
         }
     }
 
-    private eachCoordinate(operation: (xKey: string, yKey: string) => void) {
+
+    private eachCoordinate(operation: (xKey: string, yKey: string) => void) { // eslint-disable-line
         for (const xKey in this.board) {
             for (const yKey in this.board[xKey]) {
                 operation(xKey, yKey);

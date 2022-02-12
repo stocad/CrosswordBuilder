@@ -12,18 +12,21 @@
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
-    "version" : "npm run format && git add -A src",
-    "postversion" : "git push && git push --tags"
+    "lint-fix": "eslint . --ext .ts --fix",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "author": "Aaron Stockton",
   "repository": {
-     "type": "git",
-     "url": "git+https://github.com/stocad/crossword-builder.git"
-   },
-   "keywords": ["Crossword"],
+    "type": "git",
+    "url": "git+https://github.com/stocad/crossword-builder.git"
+  },
+  "keywords": [
+    "Crossword"
+  ],
   "license": "MIT",
   "dependencies": {
     "@types/chai": "^4.2.22",
@@ -37,9 +40,11 @@
     "ts-priority-queue": "^0.1.1"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.17.0",
     "@types/prompt-sync": "^4.1.1",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",

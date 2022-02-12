@@ -29,7 +29,7 @@ const Char = [
     'z',
 ];
 
-export type Char = typeof Char[number];
+export type Char = typeof Char[number]; // eslint-disable-line
 
 function isChar(char: unknown): char is Char {
     return Char.indexOf(char as Char) !== -1;
@@ -109,7 +109,6 @@ export class CrosswordLetter {
     }
 
     serializeHelper(): [number, SerializedWord] {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
         let currentLetter: CrosswordLetter | undefined = this;
         const details: [string, CrosswordLetter | undefined][] = [];
         while ((currentLetter = currentLetter.wordPriorLetter)) {
@@ -118,7 +117,7 @@ export class CrosswordLetter {
         let word = '';
         let currentIndex = 0;
         const intersections: SerializedIntersection[] = [];
-        details.forEach(([char, overlappingLetter], index) => {
+        details.forEach(([char, overlappingLetter]) => {
             word += char;
             if (overlappingLetter) {
                 const [childIndex, serializedOutput] = overlappingLetter.serializeHelper();

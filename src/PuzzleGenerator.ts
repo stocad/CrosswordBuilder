@@ -80,11 +80,9 @@ export class PuzzleGenerator {
         const startTime = Date.now();
         while (Date.now() - startTime < milliTimeout) {
             const nextPuzzle = this.next(false);
-            console.log(nextPuzzle);
             if (nextPuzzle) {
                 this.puzzles.queue(nextPuzzle);
             } else {
-                console.log('Breaking out after ' + String(Date.now() - startTime));
                 break;
             }
         }

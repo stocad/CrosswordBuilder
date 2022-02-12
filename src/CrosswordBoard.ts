@@ -49,7 +49,6 @@ export class CrosswordBoard {
                 if (e instanceof Error) {
                     return;
                 } else {
-                    console.log(e);
                     throw e;
                 }
             }

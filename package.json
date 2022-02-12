@@ -1,6 +1,6 @@
 {
   "name": "crossword-builder",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Library code to build crossword puzzles one word at a time.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -14,7 +14,7 @@
     "lint": "eslint . --ext .ts"
   },
   "author": "Aaron Stockton",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/chai": "^4.2.22",
     "@types/lodash": "^4.14.177",

@@ -11,9 +11,19 @@
     "test": "mocha --reporter spec --require ts-node/register 'tests/**/*.test.ts'",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm test && npm run lint",
+    "preversion" : "npm run lint",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
   },
   "author": "Aaron Stockton",
+  "repository": {
+     "type": "git",
+     "url": "git+https://github.com/stocad/crossword-builder.git"
+   },
+   "keywords": ["Crossword"],
   "license": "MIT",
   "dependencies": {
     "@types/chai": "^4.2.22",
